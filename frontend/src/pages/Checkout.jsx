@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const dues = [
   {
@@ -19,6 +19,7 @@ const paymentMethods = [
 ]
 
 export default function Checkout() {
+  const navigate = useNavigate()
   const [method, setMethod] = useState('card')
   const [status, setStatus] = useState('idle')
 
@@ -29,8 +30,7 @@ export default function Checkout() {
   const handlePay = () => {
     setStatus('loading')
     setTimeout(() => {
-      setStatus('success')
-      setTimeout(() => setStatus('idle'), 2000)
+      navigate('/payment-success')
     }, 2500)
   }
 

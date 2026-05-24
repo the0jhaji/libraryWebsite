@@ -11,6 +11,7 @@ import CatalogTopNav from './components/CatalogTopNav'
 import Dashboard from './pages/Dashboard'
 import Checkout from './pages/Checkout'
 import Catalog from './pages/Catalog'
+import PaymentSuccess from './pages/PaymentSuccess'
 
 function LoginPage() {
   const [mode, setMode] = useState('student')
@@ -77,6 +78,7 @@ export default function App() {
         <Route path="/dashboard" element={<AppLayout><Dashboard /></AppLayout>} />
         <Route path="/checkout" element={<AppLayout><Checkout /></AppLayout>} />
         <Route path="/catalog" element={<CatalogLayout />} />
+        <Route path="/payment-success" element={<AppLayout><PaymentSuccess /></AppLayout>} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
