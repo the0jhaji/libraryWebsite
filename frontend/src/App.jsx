@@ -7,8 +7,10 @@ import LoginForm from './components/LoginForm'
 import Sidebar from './components/Sidebar'
 import TopNav from './components/TopNav'
 import BottomNav from './components/BottomNav'
+import CatalogTopNav from './components/CatalogTopNav'
 import Dashboard from './pages/Dashboard'
 import Checkout from './pages/Checkout'
+import Catalog from './pages/Catalog'
 
 function LoginPage() {
   const [mode, setMode] = useState('student')
@@ -58,6 +60,15 @@ function AppLayout({ children }) {
   )
 }
 
+function CatalogLayout() {
+  return (
+    <div className="min-h-screen flex flex-col bg-background">
+      <CatalogTopNav />
+      <Catalog />
+    </div>
+  )
+}
+
 export default function App() {
   return (
     <BrowserRouter>
@@ -65,6 +76,7 @@ export default function App() {
         <Route path="/" element={<LoginPage />} />
         <Route path="/dashboard" element={<AppLayout><Dashboard /></AppLayout>} />
         <Route path="/checkout" element={<AppLayout><Checkout /></AppLayout>} />
+        <Route path="/catalog" element={<CatalogLayout />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
