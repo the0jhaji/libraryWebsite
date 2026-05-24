@@ -12,6 +12,9 @@ import Dashboard from './pages/Dashboard'
 import Checkout from './pages/Checkout'
 import Catalog from './pages/Catalog'
 import PaymentSuccess from './pages/PaymentSuccess'
+import AdminTopNav from './components/AdminTopNav'
+import AdminSidebar from './components/AdminSidebar'
+import AdminAnalytics from './pages/AdminAnalytics'
 
 function LoginPage() {
   const [mode, setMode] = useState('student')
@@ -70,6 +73,18 @@ function CatalogLayout() {
   )
 }
 
+function AdminLayout({ children }) {
+  return (
+    <div className="min-h-screen bg-background">
+      <AdminTopNav />
+      <div className="flex">
+        <AdminSidebar />
+        {children}
+      </div>
+    </div>
+  )
+}
+
 export default function App() {
   return (
     <BrowserRouter>
@@ -79,6 +94,7 @@ export default function App() {
         <Route path="/checkout" element={<AppLayout><Checkout /></AppLayout>} />
         <Route path="/catalog" element={<CatalogLayout />} />
         <Route path="/payment-success" element={<AppLayout><PaymentSuccess /></AppLayout>} />
+        <Route path="/admin/analytics" element={<AdminLayout><AdminAnalytics /></AdminLayout>} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
