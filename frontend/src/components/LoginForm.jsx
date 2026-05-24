@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export default function LoginForm({ mode }) {
+export default function LoginForm({ mode, onSuccess }) {
   const [uid, setUid] = useState('')
   const [password, setPassword] = useState('')
   const [remember, setRemember] = useState(false)
@@ -41,7 +41,7 @@ export default function LoginForm({ mode }) {
 
       setStatus('success')
       setTimeout(() => {
-        window.location.href = '/dashboard'
+        if (onSuccess) onSuccess()
       }, 1000)
     } catch {
       setStatus('error')
