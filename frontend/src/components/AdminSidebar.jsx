@@ -44,7 +44,7 @@ export default function AdminSidebar() {
         ))}
       </nav>
       <div className="mt-auto px-4 py-6 border-t border-outline-variant/20 space-y-1">
-        <button className="w-full mb-4 py-3 bg-secondary text-white rounded-xl font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform">
+        <button className="w-full mb-4 py-3 bg-secondary text-white rounded-xl font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform" onClick={() => console.log('Advanced search')}>
           <span className="material-symbols-outlined">search</span>
           Advanced Search
         </button>

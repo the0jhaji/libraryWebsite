@@ -19,10 +19,10 @@ export default function AdminTopNav() {
         </nav>
       </div>
       <div className="flex items-center gap-4">
-        <button className="p-2 hover:bg-surface-container-high/50 rounded-lg transition-all text-secondary">
+        <button className="p-2 hover:bg-surface-container-high/50 rounded-lg transition-all text-secondary" onClick={() => console.log('Notifications')}>
           <span className="material-symbols-outlined">notifications</span>
         </button>
-        <button className="p-2 hover:bg-surface-container-high/50 rounded-lg transition-all text-secondary">
+        <button className="p-2 hover:bg-surface-container-high/50 rounded-lg transition-all text-secondary" onClick={() => console.log('Toggle theme')}>
           <span className="material-symbols-outlined">dark_mode</span>
         </button>
         <div className="w-8 h-8 rounded-full overflow-hidden border border-outline-variant">

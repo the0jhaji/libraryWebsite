@@ -116,7 +116,10 @@ export default function Dashboard() {
                         <p className="text-sm font-bold">{book.renewals} of {book.maxRenewals}</p>
                       </div>
                     </div>
-                    <button className="px-6 py-2 bg-secondary text-on-secondary rounded-lg font-bold text-sm hover:opacity-90 active:scale-95 transition-all">
+                    <button
+                      className="px-6 py-2 bg-secondary text-on-secondary rounded-lg font-bold text-sm hover:opacity-90 active:scale-95 transition-all"
+                      onClick={() => console.log('Renew:', book.title)}
+                    >
                       Renew
                     </button>
                   </div>

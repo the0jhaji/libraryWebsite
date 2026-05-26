@@ -47,7 +47,7 @@ export default function Settings() {
                   className="w-24 h-24 rounded-full object-cover border-4 border-white shadow-md"
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWoTdU9b79jj7E-1dAFGZ02NrHOcnhUesSKRVpPBQGdFtM9tABgm125qGBpQJvNCD6lEvDhDOXHfGTnbh9prAtIdIQ3F-J97-CkfT_Wi_PPDQApzykncd3OIFMdKSpdX9BDi2E5sGm9QvMGs9plTyPkm0uO5iwlP5WML0FYPMXbVWaP-CDDIyXApXa7Co3Tv_KVj4ve--sEbN1tJZNy80Qw9RCteHH7OoS8Uu_jrb06h9QE88mmkIfrBdRGCyErqGVcelPaGr43QY"
                 />
-                <button className="absolute bottom-0 right-0 bg-secondary text-on-secondary p-1.5 rounded-full shadow-lg hover:scale-110 transition-transform material-symbols-outlined text-sm">edit</button>
+                <button className="absolute bottom-0 right-0 bg-secondary text-on-secondary p-1.5 rounded-full shadow-lg hover:scale-110 transition-transform material-symbols-outlined text-sm" onClick={() => console.log('Edit avatar')}>edit</button>
               </div>
               <div>
                 <h3 className="font-headline-md text-headline-md text-primary">{name}</h3>
@@ -75,7 +75,7 @@ export default function Settings() {
                 </div>
               </div>
               <div className="flex justify-end pt-4">
-                <button className="px-6 py-2.5 bg-secondary text-on-secondary rounded-lg font-medium hover:opacity-90 active:scale-95 transition-all shadow-sm">Update Profile</button>
+                <button className="px-6 py-2.5 bg-secondary text-on-secondary rounded-lg font-medium hover:opacity-90 active:scale-95 transition-all shadow-sm" onClick={() => console.log('Profile updated')}>Update Profile</button>
               </div>
             </div>
           </div>
@@ -90,7 +90,7 @@ export default function Settings() {
                   <p className="font-body-md font-semibold text-primary">Password</p>
                   <p className="font-body-sm text-on-surface-variant">Last updated 3 months ago</p>
                 </div>
-                <button className="px-4 py-2 border border-secondary text-secondary rounded-lg font-medium hover:bg-secondary/5 transition-colors">Change Password</button>
+                <button className="px-4 py-2 border border-secondary text-secondary rounded-lg font-medium hover:bg-secondary/5 transition-colors" onClick={() => console.log('Change password')}>Change Password</button>
               </div>
               <div className="flex items-center justify-between p-4 bg-surface-container-low rounded-lg">
                 <div>

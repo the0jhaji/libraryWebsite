@@ -13,12 +13,12 @@ export default function TopNav() {
       </div>
       <div className="flex items-center gap-4">
         <div className="relative group">
-          <button className="p-2 rounded-lg hover:bg-surface-container-high/50 transition-all active:scale-95">
+          <button className="p-2 rounded-lg hover:bg-surface-container-high/50 transition-all active:scale-95" onClick={() => console.log('Notifications')}>
             <span className="material-symbols-outlined">notifications</span>
           </button>
           <span className="absolute top-2 right-2 w-2 h-2 bg-brand-red-legacy rounded-full" />
         </div>
-        <button className="p-2 rounded-lg hover:bg-surface-container-high/50 transition-all active:scale-95">
+        <button className="p-2 rounded-lg hover:bg-surface-container-high/50 transition-all active:scale-95" onClick={() => console.log('Toggle theme')}>
           <span className="material-symbols-outlined">dark_mode</span>
         </button>
         <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-secondary/20">

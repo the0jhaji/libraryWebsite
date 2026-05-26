@@ -37,7 +37,7 @@ export default function Sidebar() {
         ))}
       </nav>
       <div className="px-4 mt-auto space-y-1 mb-8">
-        <button className="w-full mb-6 py-3 px-4 bg-primary text-on-primary rounded-lg font-bold text-sm shadow-sm transition-all hover:opacity-90 active:scale-95">
+        <button className="w-full mb-6 py-3 px-4 bg-primary text-on-primary rounded-lg font-bold text-sm shadow-sm transition-all hover:opacity-90 active:scale-95" onClick={() => console.log('Advanced search')}>
           Advanced Search
         </button>
         <a className="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:text-on-surface transition-all" href="#">

@@ -44,7 +44,7 @@ export default function BookCard({ book }) {
         </div>
       </div>
       <div className="mt-auto grid grid-cols-2 gap-2">
-        <button className="col-span-2 py-2 bg-secondary text-on-secondary rounded-lg font-bold font-label-md text-label-md flex items-center justify-center gap-2 hover:opacity-90 transition-all">
+        <button className="col-span-2 py-2 bg-secondary text-on-secondary rounded-lg font-bold font-label-md text-label-md flex items-center justify-center gap-2 hover:opacity-90 transition-all" onClick={() => console.log('Read PDF:', book.title)}>
           <span className="material-symbols-outlined text-[18px]">picture_as_pdf</span>
           Read PDF
         </button>

@@ -35,7 +35,7 @@ export default function PaymentSuccess() {
               </div>
             </div>
             <div className="flex flex-col md:flex-row items-center justify-center gap-4">
-              <button className="w-full md:w-auto flex items-center justify-center gap-2 bg-secondary text-on-secondary font-bold py-4 px-8 rounded-xl shadow-md hover:opacity-90 active:scale-95 transition-all">
+              <button className="w-full md:w-auto flex items-center justify-center gap-2 bg-secondary text-on-secondary font-bold py-4 px-8 rounded-xl shadow-md hover:opacity-90 active:scale-95 transition-all" onClick={() => console.log('Download receipt')}>
                 <span className="material-symbols-outlined">download</span>
                 <span>Download Receipt</span>
               </button>

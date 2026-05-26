@@ -85,10 +85,10 @@ export default function Catalog() {
             <Link className="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" to="/settings">Settings</Link>
           </div>
           <div className="flex items-center space-x-4">
-            <button className="p-2 rounded-full hover:bg-surface-container-low transition-all duration-200 active:scale-95">
+            <button className="p-2 rounded-full hover:bg-surface-container-low transition-all duration-200 active:scale-95" onClick={() => console.log('Notifications')}>
               <span className="material-symbols-outlined text-primary">notifications</span>
             </button>
-            <button className="p-2 rounded-full hover:bg-surface-container-low transition-all duration-200 active:scale-95">
+            <button className="p-2 rounded-full hover:bg-surface-container-low transition-all duration-200 active:scale-95" onClick={() => console.log('Account')}>
               <span className="material-symbols-outlined text-primary">account_circle</span>
             </button>
           </div>
@@ -168,7 +168,7 @@ export default function Catalog() {
               </div>
             </div>
             <div className="pt-4 border-t border-outline-variant/30">
-              <button className="w-full flex items-center justify-center gap-2 font-label-md text-label-md text-secondary py-2 rounded-lg hover:bg-secondary-container/20 transition-all">
+              <button className="w-full flex items-center justify-center gap-2 font-label-md text-label-md text-secondary py-2 rounded-lg hover:bg-secondary-container/20 transition-all" onClick={() => console.log('Clear filters')}>
                 <span className="material-symbols-outlined text-[18px]">restart_alt</span> Clear Filters
               </button>
             </div>
@@ -293,13 +293,14 @@ export default function Catalog() {
                 <button
                   key={p}
                   className={`w-10 h-10 rounded-lg font-label-md text-label-md transition-all ${p === 1 ? 'bg-primary text-on-primary' : 'border border-outline-variant hover:bg-surface-container-low'}`}
+                  onClick={() => console.log('Page:', p)}
                 >
                   {p}
                 </button>
               ))}
               <span className="px-2">...</span>
-              <button className="w-10 h-10 rounded-lg border border-outline-variant hover:bg-surface-container-low font-label-md text-label-md transition-all">63</button>
-              <button className="p-2 rounded-lg border border-outline-variant hover:bg-surface-container-low transition-all">
+              <button className="w-10 h-10 rounded-lg border border-outline-variant hover:bg-surface-container-low font-label-md text-label-md transition-all" onClick={() => console.log('Page: 63')}>63</button>
+              <button className="p-2 rounded-lg border border-outline-variant hover:bg-surface-container-low transition-all" onClick={() => console.log('Next page')}>
                 <span className="material-symbols-outlined">chevron_right</span>
               </button>
             </div>

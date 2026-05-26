@@ -67,7 +67,7 @@ export default function MyLoans() {
               <Link className="text-on-surface-variant hover:text-primary transition-colors font-body-sm text-body-sm" to="/settings">Settings</Link>
             </nav>
             <div className="flex items-center gap-4 border-l border-outline-variant/30 pl-8">
-              <button className="material-symbols-outlined p-2 hover:bg-surface-container-low rounded-full transition-all duration-200 active:scale-95">notifications</button>
+              <button className="material-symbols-outlined p-2 hover:bg-surface-container-low rounded-full transition-all duration-200 active:scale-95" onClick={() => console.log('Notifications')}>notifications</button>
               <div className="flex items-center gap-3">
                 <span className="font-label-md text-label-md">Alex Rivera</span>
                 <div className="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-white overflow-hidden">
@@ -201,7 +201,7 @@ export default function MyLoans() {
                           </div>
                         </div>
                         <div className="flex justify-end mt-6 gap-3">
-                          <button className="px-6 py-2 border border-outline text-on-surface-variant rounded-lg font-bold hover:bg-surface-container-low transition-colors active:scale-95">View Details</button>
+                          <button className="px-6 py-2 border border-outline text-on-surface-variant rounded-lg font-bold hover:bg-surface-container-low transition-colors active:scale-95" onClick={() => console.log('View details:', book.title)}>View Details</button>
                           <button
                             className={`px-8 py-2 rounded-lg font-bold transition-all active:scale-95 ${s === 'renewed' ? 'bg-success text-white' : 'bg-secondary text-on-secondary hover:opacity-90'}`}
                             onClick={() => handleRenew(setStatuses, book._id)}

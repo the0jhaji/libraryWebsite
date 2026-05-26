@@ -19,11 +19,11 @@ export default function AdminAnalytics() {
           <p className="text-on-surface-variant font-body-md">Monitoring institutional revenue and student compliance metrics.</p>
         </div>
         <div className="flex gap-4">
-          <button className="px-6 py-3 border border-secondary text-secondary rounded-xl font-bold flex items-center gap-2 hover:bg-secondary-fixed transition-colors">
+          <button className="px-6 py-3 border border-secondary text-secondary rounded-xl font-bold flex items-center gap-2 hover:bg-secondary-fixed transition-colors" onClick={() => console.log('Issue book')}>
             <span className="material-symbols-outlined">add_circle</span>
             Issue Book
           </button>
-          <button className="px-6 py-3 bg-secondary text-white rounded-xl font-bold flex items-center gap-2 shadow-md hover:opacity-90 active:scale-98 transition-all">
+          <button className="px-6 py-3 bg-secondary text-white rounded-xl font-bold flex items-center gap-2 shadow-md hover:opacity-90 active:scale-98 transition-all" onClick={() => console.log('Manually renew')}>
             <span className="material-symbols-outlined">update</span>
             Manually Renew
           </button>
@@ -55,8 +55,8 @@ export default function AdminAnalytics() {
           <div className="flex justify-between items-center mb-6">
             <h4 className="font-headline-md text-headline-md text-primary">Revenue Trend Analysis</h4>
             <div className="flex gap-2">
-              <button className="px-3 py-1 bg-surface-container-high rounded text-label-sm uppercase">Weekly</button>
-              <button className="px-3 py-1 bg-primary text-white rounded text-label-sm uppercase">Monthly</button>
+              <button className="px-3 py-1 bg-surface-container-high rounded text-label-sm uppercase" onClick={() => console.log('Weekly view')}>Weekly</button>
+              <button className="px-3 py-1 bg-primary text-white rounded text-label-sm uppercase" onClick={() => console.log('Monthly view')}>Monthly</button>
             </div>
           </div>
           <div className="h-64 flex items-end justify-between gap-4 px-4 relative overflow-hidden">
@@ -164,7 +164,7 @@ export default function AdminAnalytics() {
                       <p className="text-xs text-error font-bold uppercase tracking-widest">Unpaid Balance</p>
                       <h4 className="font-headline-lg text-headline-lg text-error">₹14.25</h4>
                     </div>
-                    <button className="bg-brand-red-legacy text-white px-4 py-2 rounded-lg font-bold text-sm shadow-sm active:scale-95 transition-transform">Pay Fine</button>
+                    <button className="bg-brand-red-legacy text-white px-4 py-2 rounded-lg font-bold text-sm shadow-sm active:scale-95 transition-transform" onClick={() => console.log('Pay fine')}>Pay Fine</button>
                   </div>
                 </div>
                 <div className="space-y-2">
