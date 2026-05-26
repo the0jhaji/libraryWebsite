@@ -10,6 +10,7 @@ import BottomNav from './components/BottomNav'
 import Dashboard from './pages/Dashboard'
 import Checkout from './pages/Checkout'
 import Catalog from './pages/Catalog'
+import MyLoans from './pages/MyLoans'
 import PaymentSuccess from './pages/PaymentSuccess'
 import AdminTopNav from './components/AdminTopNav'
 import AdminSidebar from './components/AdminSidebar'
@@ -86,6 +87,7 @@ export default function App() {
         <Route path="/dashboard" element={<AppLayout><Dashboard /></AppLayout>} />
         <Route path="/checkout" element={<AppLayout><Checkout /></AppLayout>} />
         <Route path="/catalog" element={<Catalog />} />
+        <Route path="/my-loans" element={<MyLoans />} />
         <Route path="/payment-success" element={<AppLayout><PaymentSuccess /></AppLayout>} />
         <Route path="/settings" element={<AppLayout><Settings /></AppLayout>} />
         <Route path="/forgot-password" element={<ForgotPassword />} />

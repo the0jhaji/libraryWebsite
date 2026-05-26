@@ -80,7 +80,7 @@ export default function Catalog() {
           <div className="hidden md:flex items-center space-x-6">
             <Link className="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" to="/dashboard">Dashboard</Link>
             <Link className="font-label-md text-label-md text-secondary border-b-2 border-secondary pb-1" to="/catalog">Catalog</Link>
-            <Link className="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" to="/dashboard">My Loans</Link>
+            <Link className="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" to="/my-loans">My Loans</Link>
             <Link className="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" to="/checkout">Fines</Link>
             <Link className="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" to="/settings">Settings</Link>
           </div>
