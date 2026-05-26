@@ -40,6 +40,30 @@ const statusStyles = {
 
 export default function Catalog() {
   const [view, setView] = useState('grid')
+  const [query, setQuery] = useState('')
+  const [focused, setFocused] = useState(false)
+
+  const handleSearch = (e) => {
+    e.preventDefault()
+    if (!query.trim()) return
+    console.log('Searching for:', query)
+  }
+
+  const handleReserve = (title) => {
+    console.log('Reserved:', title)
+  }
+
+  const handleAccessPdf = (title) => {
+    console.log('Accessing PDF:', title)
+  }
+
+  const handleAddToCart = (title) => {
+    console.log('Added to cart:', title)
+  }
+
+  const handleAddToWishlist = (title) => {
+    console.log('Added to wishlist:', title)
+  }
 
   return (
     <div className="bg-background text-on-background min-h-screen flex flex-col">
@@ -74,13 +98,20 @@ export default function Catalog() {
       <main className="mt-16 flex-grow flex flex-col max-w-container-max mx-auto w-full px-margin-desktop py-8">
         <header className="mb-10 text-center md:text-left">
           <h1 className="font-headline-xl text-headline-xl mb-6 text-primary">Academic Repository</h1>
-          <div className="max-w-4xl mx-auto md:mx-0 flex flex-col md:flex-row gap-4 p-4 glass-panel border border-outline-variant/30 rounded-xl shadow-md" id="searchContainer">
+          <form
+            onSubmit={handleSearch}
+            className={`max-w-4xl mx-auto md:mx-0 flex flex-col md:flex-row gap-4 p-4 glass-panel border border-outline-variant/30 rounded-xl shadow-md transition-all ${focused ? 'ring-2 ring-secondary/30' : ''}`}
+          >
             <div className="flex-grow relative">
               <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
               <input
                 className="w-full pl-12 pr-4 py-3 bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-secondary transition-all font-body-md text-body-md"
                 placeholder="Search by Title, Author, ISBN..."
                 type="text"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                onFocus={() => setFocused(true)}
+                onBlur={() => setFocused(false)}
               />
             </div>
             <div className="flex gap-2">
@@ -90,9 +121,9 @@ export default function Catalog() {
                 <option>ISBN</option>
                 <option>Subject</option>
               </select>
-              <button className="bg-primary text-on-primary px-8 py-3 rounded-lg font-headline-md text-label-md hover:opacity-90 active:scale-95 transition-all">Search</button>
+              <button type="submit" className="bg-primary text-on-primary px-8 py-3 rounded-lg font-headline-md text-label-md hover:opacity-90 active:scale-95 transition-all">Search</button>
             </div>
-          </div>
+          </form>
         </header>
 
         <div className="flex flex-col md:flex-row gap-gutter">
@@ -204,10 +235,17 @@ export default function Catalog() {
                       {book.status !== 'E-Resource' ? (
                         <div className="space-y-2">
                           <div className="flex gap-2">
-                            <button className={`flex-1 py-2 rounded-lg font-label-md text-label-md transition-all ${book.status === 'Available' ? 'bg-secondary text-on-primary hover:opacity-90 active:scale-[0.98]' : 'bg-surface-container-high text-on-surface-variant cursor-not-allowed'}`}>
+                            <button
+                              className={`flex-1 py-2 rounded-lg font-label-md text-label-md transition-all ${book.status === 'Available' ? 'bg-secondary text-on-primary hover:opacity-90 active:scale-[0.98] cursor-pointer' : 'bg-surface-container-high text-on-surface-variant cursor-not-allowed'}`}
+                              onClick={() => book.status === 'Available' && handleReserve(book.title)}
+                              disabled={book.status !== 'Available'}
+                            >
                               {book.status === 'Available' ? 'Reserve' : 'Checked Out'}
                             </button>
-                            <button className="p-2 border border-outline-variant rounded-lg hover:bg-surface-container-low transition-all">
+                            <button
+                              className="p-2 border border-outline-variant rounded-lg hover:bg-surface-container-low transition-all cursor-pointer"
+                              onClick={() => book.status === 'Available' ? handleAddToCart(book.title) : handleAddToWishlist(book.title)}
+                            >
                               <span className="material-symbols-outlined text-[20px] text-primary">
                                 {book.status === 'Available' ? 'add_shopping_cart' : 'bookmark'}
                               </span>
@@ -219,17 +257,26 @@ export default function Catalog() {
                             </div>
                           )}
                           {book.status === 'Available' && (
-                            <button className="w-full flex items-center justify-center gap-2 text-on-surface-variant font-label-sm text-label-sm py-1.5 hover:text-primary transition-colors">
+                            <button
+                              className="w-full flex items-center justify-center gap-2 text-on-surface-variant font-label-sm text-label-sm py-1.5 hover:text-primary transition-colors cursor-pointer"
+                              onClick={() => handleAccessPdf(book.title)}
+                            >
                               <span className="material-symbols-outlined text-[18px]">picture_as_pdf</span> Download E-Resource
                             </button>
                           )}
                         </div>
                       ) : (
                         <div className="space-y-2">
-                          <button className="w-full bg-primary text-on-primary py-2 rounded-lg font-label-md text-label-md hover:opacity-90 active:scale-[0.98] transition-all flex items-center justify-center gap-2">
+                          <button
+                            className="w-full bg-primary text-on-primary py-2 rounded-lg font-label-md text-label-md hover:opacity-90 active:scale-[0.98] transition-all flex items-center justify-center gap-2 cursor-pointer"
+                            onClick={() => handleAccessPdf(book.title)}
+                          >
                             <span className="material-symbols-outlined">download</span> Access PDF
                           </button>
-                          <button className="w-full border border-outline-variant text-on-surface-variant py-2 rounded-lg font-label-md text-label-md hover:bg-surface-container-low transition-all">Add to Wishlist</button>
+                          <button
+                            className="w-full border border-outline-variant text-on-surface-variant py-2 rounded-lg font-label-md text-label-md hover:bg-surface-container-low transition-all cursor-pointer"
+                            onClick={() => handleAddToWishlist(book.title)}
+                          >Add to Wishlist</button>
                         </div>
                       )}
                     </div>
