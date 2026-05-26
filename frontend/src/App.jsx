@@ -15,6 +15,8 @@ import PaymentSuccess from './pages/PaymentSuccess'
 import AdminTopNav from './components/AdminTopNav'
 import AdminSidebar from './components/AdminSidebar'
 import AdminAnalytics from './pages/AdminAnalytics'
+import ForgotPassword from './pages/ForgotPassword'
+import ResetLinkSent from './pages/ResetLinkSent'
 
 function LoginPage() {
   const [mode, setMode] = useState('student')
@@ -94,6 +96,8 @@ export default function App() {
         <Route path="/checkout" element={<AppLayout><Checkout /></AppLayout>} />
         <Route path="/catalog" element={<CatalogLayout />} />
         <Route path="/payment-success" element={<AppLayout><PaymentSuccess /></AppLayout>} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-link-sent" element={<ResetLinkSent />} />
         <Route path="/admin/analytics" element={<AdminLayout><AdminAnalytics /></AdminLayout>} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

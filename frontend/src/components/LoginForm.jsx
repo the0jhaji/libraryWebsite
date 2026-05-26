@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 export default function LoginForm({ mode, onSuccess }) {
   const [uid, setUid] = useState('')
@@ -8,8 +9,8 @@ export default function LoginForm({ mode, onSuccess }) {
   const [status, setStatus] = useState('idle')
 
   const uidConfig = {
-    student: { label: 'Student ID Number', placeholder: 'e.g. SJU-123456' },
-    staff: { label: 'Staff / Faculty Email', placeholder: 'e.g. j.doe@stjude.edu' },
+    student: { label: 'Student ID Number', placeholder: 'e.g. NSEC-123456' },
+    staff: { label: 'Staff / Faculty Email', placeholder: 'e.g. j.doe@nsec.edu' },
   }
 
   const config = uidConfig[mode]
@@ -104,9 +105,9 @@ export default function LoginForm({ mode, onSuccess }) {
           <label className="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider" htmlFor="password">
             Library PIN / Password
           </label>
-          <a className="font-label-md text-label-md text-secondary hover:underline transition-all" href="#">
+          <Link className="font-label-md text-label-md text-secondary hover:underline transition-all" to="/forgot-password">
             Forgot PIN?
-          </a>
+          </Link>
         </div>
         <div className="relative group">
           <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-secondary transition-colors">

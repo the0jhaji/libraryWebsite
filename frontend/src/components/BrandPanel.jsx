@@ -10,34 +10,21 @@ export default function BrandPanel() {
       </div>
       <div className="relative">
         <div className="flex items-center gap-2 mb-8">
-          <span className="material-symbols-outlined text-secondary text-4xl">local_library</span>
+          <img
+            className="h-10 w-auto object-contain"
+            alt="NSEC Logo"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAr8iA1tWQhR0uh0x3rIllnUe09Dubv8scuvYVTog0YDhF4EYfDJ0JufmwChyRqfhsTD6UTby_dgKJsSF_fiB40IHGOt12uVKTKiWgEy3aoev_vtZ-C2WPXlWK9H7SpJ12vvogBm9zH4EmMD94IfLV_s-2V5DK8m0pOTzxQGXr1ii1sRMXw-692wgK_201ZwUoNojFhApZnqm8zKnUhOwjHGmg30hU47t40tg_99WuerBTLQozGGvYZGFJdEttnNZm0td5JQHSA3UM"
+          />
           <h1 className="font-headline-md text-headline-md font-bold tracking-tight text-surface-container-lowest">
-            Central Library
+            NSEC Library
           </h1>
         </div>
         <h2 className="font-headline-xl text-headline-xl text-surface-container-lowest leading-tight mb-4">
           Empowering <br />Discovery.
         </h2>
         <p className="font-body-lg text-body-lg text-on-primary-container max-w-sm">
-          Access millions of resources, archives, and research databases from St. Jude University.
+          Access millions of resources, archives, and research databases from NSEC.
         </p>
-      </div>
-      <div className="relative flex items-center gap-4 bg-white/5 p-4 rounded-lg backdrop-blur-md border border-white/10">
-        <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-secondary">
-          <img
-            className="w-full h-full object-cover"
-            alt="University administrator portrait"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDd2p9XAF2XaUJB2OQBIc5nWmUxSVHfwr4o2yN-EeujRJcY_xF1ruMB4gNy9AQwiQkhCb78RKByzVOjUXESJyJ0z8ZMApYDaDX8FWDyXV-MGIYR21rA-hUQlOOswed3InBjm0zrcwHPTEj2fMGgegRWeDa4yz2GGMJ6zqvmGCFIh9GsgS00ScZftWnKdd_Pl6gQ1hXF1YGjNvqWu7LwWuthf7tNFGppItdqYtXPqD6PnjQGaeUgMI3tcFFXlQMgQoN88h7KMvNa2i4"
-          />
-        </div>
-        <div>
-          <p className="font-label-md text-label-md uppercase tracking-wider text-secondary">
-            Admin Portal
-          </p>
-          <p className="font-body-sm text-body-sm text-on-primary-fixed">
-            St. Jude University Library
-          </p>
-        </div>
       </div>
     </div>
   )
