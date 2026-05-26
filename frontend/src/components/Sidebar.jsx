@@ -7,7 +7,7 @@ const links = [
   { to: '#', icon: 'group', label: 'Student Records' },
   { to: '#', icon: 'analytics', label: 'Fine Analytics' },
   { to: '#', icon: 'inventory_2', label: 'Inventory' },
-  { to: '#', icon: 'settings', label: 'Settings' },
+  { to: '/settings', icon: 'settings', label: 'Settings' },
 ]
 
 export default function Sidebar() {
