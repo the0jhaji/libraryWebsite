@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router-dom'
 
 const dues = [
   {
-    _id: '1', title: 'Quantum Physics', reason: 'Late Return - 5 days', fine: '$15.00',
+    _id: '1', title: 'Quantum Physics', reason: 'Late Return - 5 days', fine: '₹15.00',
     cover: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCdAjXv3o-ml5clp4-k1KZzcS2nE4-B7ZOvy-Zqd9j4mWauSxGhwqLlubGaXqr-sJstOAEMMKkBvZwA3GoWfFibPOTHyHkfQdSjpQYAuOt90awGvN1pw1TFGGCQD5z9XaraWpsffynVWwvPZNfEsFyFMSnCgwiQ93-eDwl1rjFrvJIZaANef8JT9fVjdOAidWJIXUCw_num6bei1MdfQhjzyUxWViQik0bajJyEd1_RETGBuHy8v9o3hJj_RKVVjh-YRLkCR6BoGOM',
   },
   {
-    _id: '2', title: 'Introduction to Algorithms', reason: 'Damaged Cover', fine: '$12.50',
+    _id: '2', title: 'Introduction to Algorithms', reason: 'Damaged Cover', fine: '₹12.50',
     cover: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCMqUfc40odYFDesHoiGkv8IrXGrrAU3d6VkDNcI8eHHTc3yEbAHwgjMV0WWcbp1t1koBX4NWavfn1aBajaZGo1WwVO9KbjqwRNYXogD4lrNEDm1hkVFUvOmvn0d7GslAyb_xLpVBTenU-id7BXmNWw542xiD0k8_Ypcn5RPEldxBXGR5ii_peyvO1J9g5NRQ4mXrqEcYl_QG-8EfNTfqpHtRVTsBRUpkxu6woOjX22KMlUGMMNkiB9M-BJiFhkWqE78QR86p9OFo4',
   },
 ]
@@ -23,7 +23,7 @@ export default function Checkout() {
   const [method, setMethod] = useState('card')
   const [status, setStatus] = useState('idle')
 
-  const subtotal = dues.reduce((s, d) => s + parseFloat(d.fine.replace('$', '')), 0)
+  const subtotal = dues.reduce((s, d) => s + parseFloat(d.fine.replace('₹', '')), 0)
   const processing = 1.2
   const total = subtotal + processing
 
@@ -68,15 +68,15 @@ export default function Checkout() {
               <div className="mt-8 pt-6 border-t border-outline-variant/30">
                 <div className="flex justify-between items-center mb-2">
                   <span className="font-body-md text-on-surface-variant">Subtotal</span>
-                  <span className="font-label-md text-label-md">${subtotal.toFixed(2)}</span>
+                  <span className="font-label-md text-label-md">₹{subtotal.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between items-center mb-6">
                   <span className="font-body-md text-on-surface-variant">Processing Fee</span>
-                  <span className="font-label-md text-label-md">${processing.toFixed(2)}</span>
+                  <span className="font-label-md text-label-md">₹{processing.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="font-headline-md text-headline-md font-bold">Total Amount</span>
-                  <span className="font-headline-md text-headline-md font-bold text-secondary">${total.toFixed(2)}</span>
+                  <span className="font-headline-md text-headline-md font-bold text-secondary">₹{total.toFixed(2)}</span>
                 </div>
               </div>
             </section>
@@ -154,7 +154,7 @@ export default function Checkout() {
                   ) : (
                     <>
                       <span className="material-symbols-outlined">lock</span>
-                      Pay ${total.toFixed(2)} Now
+                      Pay ₹{total.toFixed(2)} Now
                     </>
                   )}
                 </button>

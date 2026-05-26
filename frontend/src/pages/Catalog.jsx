@@ -1,253 +1,286 @@
-import { useState, useEffect } from 'react'
-import BookCard from '../components/BookCard'
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
-const defaultBooks = [
+const books = [
   {
-    _id: '1', title: 'Srimad Bhagavatam Eighth Canto', author: 'A.C. Bhaktivedanta Swami Prabhupada',
-    description: 'Withdrawal of the cosmic creations (Part one)', code: '294.5924/SRI', year: 'c1972',
-    status: 'Available', cover: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBvEvKoGEQFmr8zF-Cd-BsgaWmQKwF5OBqZsApDIDPWtnD6BbIo-ccIB53BlEC63ud3XPo2FZdoeBvbkAjfyL1ApkC-dYakwK3ZPCnSAw0rjatoLBTsdOZO3xwQQHdRrXdColuNmuLtLPEcdBf3Ve5myoRWb6E7WuBynOJ3tF3wmrutFthdIdnKLillAl2x4_k25m1EV_Bd14sCfTe-vy_IGR8Ox-YzJ6jWqfhgI2Md5jyMklorkmx_N9v2fBbtmnoFnk2kswI4QrQ',
+    _id: '1', code: '294.5924/SRI,C-8,P-1',
+    title: 'Srimad Bhagavatam Eighth Canto: Withdrawal of the cosmic creations',
+    author: 'A.C. Bhaktivedanta Swami Prabhupada',
+    status: 'Available',
+    cover: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAYk0ZjKf3ITQ2sc-PpweznyCZqzlOahkvNvdg1ACSh5_npJAE1J3wXxD_5EVkjI4TQvNtJ83fag7D_L87jmj3ewfr-xRzDUoMG9kkNcN58aFSzKtaMu0Pi7iJV6afh8XFidAErYV7L9UhkoWJZ8VYIfZ1x-0RZMFDWvLrnlqRaw_FqEXrRk7tYepkbXnL-NuXtmgU6tb2ok-KHaOsJhK8z1vlGmunYBJCIrSK55u8XB0vspAsMSapS76HtxZGi4t89nMySxaoOfFY',
   },
   {
-    _id: '2', title: 'Srimad Bhagavatam Eleventh Canto', author: 'A.C. Bhaktivedanta Swami Prabhupada',
-    description: 'General history (Part five)', code: '294.5924/SRI', year: 'c1984',
-    status: 'Borrowed', cover: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAypt_jR0O34UVZs3CYSeqTmlciiXG73N7PM-TB0kvYAHMH4n3y4fr-GWxFHnae3khcLlE9wiwuQ7OZaNeehMvz7Axiv52D9ZWgev1nNGfdxh0x8ShnqAo2zqvRDnqbJwwJ9FebaTsCD6IlMLbkIPrqxN9GWg1wy4ELhk6ffxdrKyXnC_jSTfGhRX-wfGyx7JdOlGKAi9-2CVHCIBmWWWak-TjMm9jgBZ3LabZX0XM1Qssc7OR1mBM9XEWhfmjRGJXbRR2cZbgSagA',
+    _id: '2', code: '530.12/PLA,C-1',
+    title: 'Quantum Mechanics: A New Perspective',
+    author: 'Richard Feynman',
+    status: 'Borrowed',
+    cover: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAC0tdS50goNequ-XKwTGc3QJmr2sJOQNz5rzqRTeh0ypgbDedszia02oDWskCBwMMS8nEoOhoKSpAV1s-uyZXXomr-0hu5uXF-D4wIbr-xa4WNgFJI2HAYe8BwzGz4OXXAaq3GPuIXU3QeMK6C12D4SyNyy-eywl050kx_16oYBGQ2O9RyCTT5mPbWXOOiDEMULjMdQGmxeQMNnIHwPgYBp9PfpHeqGRKfh69xyS9xKP2347_vXGRt17s1KpfRPbj0p0HlVoEEc9I',
   },
   {
-    _id: '3', title: 'Srimad Bhagavatam First Canto', author: 'A.C. Bhaktivedanta Swami Prabhupada',
-    description: 'Creation (Part one- chapters 1-7)', code: '294.5924/SRI', year: 'c1972',
-    status: 'On Shelf', cover: 'https://lh3.googleusercontent.com/aida-public/AB6AXuApFJpqbjTG9gNVfEXccOc7BY0cYoTHreSL7c1vrL2sWOPIbWFk8kQy2vFLutEpfTfjmk9vkBHmtpKxhnMr8M9kKzmlJBNkUaE90z_Lm1iknSEvTcgQL67RuJYuQpEpNW5mOMMcnyfwZVOgWnWnFZT3m16VwYw1fvQ80B5qt2FZ9Jugn9B60o7tIIo600qI1FDwlAqIGh9pB-EOmNY2kHg1tMSx0zNRRJcmwnaDnEX4VAahJCV0qpoRQc2J4co_9NpfCzwMRPcpjfE',
+    _id: '3', code: '294.5924/SRI,C-9,P-2',
+    title: 'Srimad Bhagavatam Ninth Canto: Liberation (Part Two)',
+    author: 'A.C. Bhaktivedanta Swami Prabhupada',
+    status: 'Available',
+    cover: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCJ9ByLQOoCAK59MtdDMZzHNJIM53u6zDCxwONPL7DhvELBPnEUDQPpLqqytuA03HVaz2YQyD7zpBDup6-d7bz86Ws8xNgeD5Ea5PtqbWdjYx3SfxHZRBDnzea5wFlz4fFQ32M29Kjb2Z5HNDwbzHpqN91xLSooRuaESsG1_oc7Oc0eQ72uYiS6-8xhrBdApk-qN1EK5g3gG512zYvND8Sdw8dUsqMRVA5SmKzroWoDNlWco53FHv5vbe1R6gsK9kZeiR5AOId7cuw',
+  },
+  {
+    _id: '4', code: 'ONLINE/RESR-402',
+    title: 'Advanced Structural Engineering: Digital Edition',
+    author: 'Dr. Arnab Kumar',
+    status: 'E-Resource',
+    cover: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA3UUdqnBdHIUJBhGwJYe3ho-3qYz7qYcDgWFPzTNpmU2UpwYa7faEr5I3m8AH3KGondUiTXAPmtqYUbMMewBynZBoD78vo2jSn19239EQDNyVstax3k-d1t-vbJl2LVvBuCH3-1AyYgWJ2ElPoFEgwyVJumXhoHUEIBb4mqVsoLpgPSrup-cXhs3a4EOTfoS2lcOhRd_jjbz3tKaNOeGTPvBQG-eB4QKkMYbiHct054qTqAvuevU8ocbO7hvqFiozrXqcjd-1St_g',
   },
 ]
 
+const statusStyles = {
+  Available: 'bg-success text-white',
+  Borrowed: 'bg-error text-white',
+  'E-Resource': 'bg-tertiary-fixed text-on-tertiary-fixed',
+}
+
 export default function Catalog() {
-  const [books, setBooks] = useState(defaultBooks)
-  const [query, setQuery] = useState('Srimad Bhagavatam')
-  const [totalResults, setTotalResults] = useState(defaultBooks.length)
-  const [filter, setFilter] = useState('author')
-  const [category, setCategory] = useState('Books')
-  const [page, setPage] = useState(1)
-  const [totalPages, setTotalPages] = useState(1)
-  const [availableOnly, setAvailableOnly] = useState(false)
-
-  useEffect(() => {
-    const params = new URLSearchParams({ q: query, filter, category, page: String(page) })
-    if (availableOnly) params.set('available', 'true')
-
-    fetch(`/api/books/search?${params}`)
-      .then((r) => r.ok ? r.json() : Promise.reject())
-      .then((data) => {
-        if (data.books?.length) {
-          setBooks(data.books)
-          setTotalResults(data.total || data.books.length)
-          setTotalPages(data.pages || 1)
-        }
-      })
-      .catch(() => {})
-  }, [query, filter, category, page, availableOnly])
-
-  const handleSearch = (e) => {
-    e.preventDefault()
-    const input = e.currentTarget.querySelector('input')
-    setQuery(input.value || 'Srimad Bhagavatam')
-    setPage(1)
-  }
+  const [view, setView] = useState('grid')
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
-      <main className="pt-24 pb-16 px-margin-desktop max-w-container-max mx-auto w-full">
-        <section className="mb-12">
-          <div className="max-w-4xl mx-auto text-center mb-8">
-            <p className="font-label-md text-label-md text-secondary uppercase tracking-widest mb-2">NSEC LIBRARY</p>
-            <h2 className="font-headline-xl text-headline-xl text-on-surface mb-4">Central Library, Netaji Subhash Engg College Garia</h2>
-            <p className="text-on-surface-variant font-body-lg text-body-lg">Unlock the vast world of knowledge with our modern digital catalog.</p>
+    <div className="bg-background text-on-background min-h-screen flex flex-col">
+      <nav className="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl border-b border-outline-variant/30 shadow-sm">
+        <div className="flex justify-between items-center px-margin-desktop h-16 w-full max-w-container-max mx-auto">
+          <div className="flex items-center gap-4">
+            <img
+              alt="NSEC Logo"
+              className="h-10 w-10 object-contain rounded-md"
+              src="https://lh3.googleusercontent.com/aida/ADBb0ugdZr919kDZqf9790PMglg0u0VtR-ofMiJ9jj2jw1FZV7h892rEWU8OgoCoMXLChGIonmtZbN2uYcMkmOFsnuSy4rePQHcgo68JatZjgO011fQtq0vdnEeAGou6oOZCUzGNOYeDW7fWFR3kVobujUy1w5rWZflVxT1cGHoaTdobfxqsfo_35QT8K6nmxR_iSHgE5oMIWAGAwzY3y1v5W0NsuE095U_7hVcL8zaCYhNKZiyiCqc6H0vaROI"
+            />
+            <span className="font-headline-md text-headline-md font-bold text-primary">Central Library</span>
           </div>
-          <div className="glass-card p-gutter rounded-xl shadow-md max-w-5xl mx-auto border border-outline-variant/30">
-            <form onSubmit={handleSearch}>
-              <div className="flex flex-wrap gap-4 mb-6">
-                {['author', 'title', 'classified', 'subject'].map((f) => (
-                  <label key={f} className="flex items-center gap-2 cursor-pointer group">
-                    <input
-                      className="w-4 h-4 text-secondary focus:ring-secondary border-outline"
-                      type="radio" name="search_filter"
-                      checked={filter === f}
-                      onChange={() => setFilter(f)}
-                    />
-                    <span className="font-label-md text-label-md text-on-surface group-hover:text-secondary transition-colors capitalize">{f}</span>
-                  </label>
-                ))}
-              </div>
-              <div className="flex flex-col md:flex-row gap-4">
-                <div className="relative flex-grow">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-outline-variant material-symbols-outlined">search</span>
-                  <input
-                    className="w-full pl-12 pr-4 py-4 rounded-lg border-outline-variant focus:border-secondary focus:ring-2 focus:ring-secondary-container bg-surface-container-lowest text-body-md font-body-md outline-none transition-all"
-                    placeholder="Starting With: Enter text to search..."
-                    defaultValue={query}
-                    type="text"
-                  />
-                </div>
-                <div className="w-full md:w-48">
-                  <select
-                    className="w-full py-4 rounded-lg border-outline-variant focus:border-secondary focus:ring-2 focus:ring-secondary-container bg-surface-container-lowest text-body-md font-body-md outline-none cursor-pointer"
-                    value={category}
-                    onChange={(e) => setCategory(e.target.value)}
-                  >
-                    <option>Books</option>
-                    <option>Journals</option>
-                    <option>Thesis</option>
-                    <option>Audiobooks</option>
-                  </select>
-                </div>
-                <button
-                  type="submit"
-                  className="px-10 py-4 bg-secondary text-on-secondary rounded-lg font-bold font-headline-md text-headline-md active:scale-95 transition-transform shadow-lg shadow-secondary/20"
-                >
-                  GO
-                </button>
-              </div>
-            </form>
-            <div className="mt-6 flex justify-between items-center">
-              <div className="flex gap-4">
-                <button className="flex items-center gap-2 text-on-surface-variant hover:text-secondary transition-colors font-body-sm text-body-sm">
-                  <span className="material-symbols-outlined text-[20px]">tune</span> Advanced Search
-                </button>
-                <a className="flex items-center gap-2 text-secondary hover:underline transition-all font-body-sm text-body-sm" href="https://play.google.com/store/apps/details?id=com.libsys.lsearch&hl=en" target="_blank" rel="noopener noreferrer">
-                  <span className="material-symbols-outlined text-[20px]">smartphone</span> Activate The App
-                </a>
-              </div>
-              <div className="flex gap-2">
-                <span className="text-on-surface-variant font-label-md text-label-md">Grid View</span>
-                <span className="material-symbols-outlined text-outline" style={{ fontVariationSettings: "'FILL' 1" }}>grid_view</span>
-              </div>
-            </div>
+          <div className="hidden md:flex items-center space-x-6">
+            <Link className="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" to="/dashboard">Dashboard</Link>
+            <Link className="font-label-md text-label-md text-secondary border-b-2 border-secondary pb-1" to="/catalog">Catalog</Link>
+            <Link className="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" to="/dashboard">My Loans</Link>
+            <Link className="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" to="/checkout">Fines</Link>
+            <Link className="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" to="/settings">Settings</Link>
           </div>
-        </section>
+          <div className="flex items-center space-x-4">
+            <button className="p-2 rounded-full hover:bg-surface-container-low transition-all duration-200 active:scale-95">
+              <span className="material-symbols-outlined text-primary">notifications</span>
+            </button>
+            <button className="p-2 rounded-full hover:bg-surface-container-low transition-all duration-200 active:scale-95">
+              <span className="material-symbols-outlined text-primary">account_circle</span>
+            </button>
+          </div>
+        </div>
+      </nav>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
-          <aside className="lg:col-span-3 space-y-6">
-            <div className="bg-surface-container-low rounded-xl p-base border border-outline-variant/20 shadow-sm">
-              <div className="p-4 border-b border-outline-variant/30 mb-2">
-                <h3 className="font-label-md text-label-md uppercase tracking-wider text-secondary">Quick Links</h3>
-              </div>
-              <nav className="flex flex-col gap-1">
-                {[
-                  { icon: 'book_4', label: 'My Books', to: '/dashboard' },
-                  { icon: 'new_releases', label: 'New Additions' },
-                  { icon: 'newspaper', label: 'Journals' },
-                  { icon: 'history_edu', label: 'Renewals', to: '/dashboard' },
-                ].map((link) => (
-                  <a
-                    key={link.label}
-                    href={link.to || '#'}
-                    className={`flex items-center gap-3 p-3 rounded-lg transition-all ${
-                      link.label === 'My Books'
-                        ? 'bg-secondary-container text-on-secondary-container font-bold'
-                        : 'text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface'
-                    }`}
-                  >
-                    <span className="material-symbols-outlined">{link.icon}</span>
-                    <span className="font-body-md">{link.label}</span>
-                  </a>
-                ))}
-              </nav>
+      <main className="mt-16 flex-grow flex flex-col max-w-container-max mx-auto w-full px-margin-desktop py-8">
+        <header className="mb-10 text-center md:text-left">
+          <h1 className="font-headline-xl text-headline-xl mb-6 text-primary">Academic Repository</h1>
+          <div className="max-w-4xl mx-auto md:mx-0 flex flex-col md:flex-row gap-4 p-4 glass-panel border border-outline-variant/30 rounded-xl shadow-md" id="searchContainer">
+            <div className="flex-grow relative">
+              <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+              <input
+                className="w-full pl-12 pr-4 py-3 bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-secondary transition-all font-body-md text-body-md"
+                placeholder="Search by Title, Author, ISBN..."
+                type="text"
+              />
             </div>
-            <div className="bg-surface-container-low rounded-xl p-4 border border-outline-variant/20">
-              <h3 className="font-label-md text-label-md uppercase tracking-wider text-secondary mb-4">Availability</h3>
+            <div className="flex gap-2">
+              <select className="bg-surface-container-low border-none rounded-lg px-4 py-3 font-label-md text-label-md focus:ring-2 focus:ring-secondary">
+                <option>Title</option>
+                <option>Author</option>
+                <option>ISBN</option>
+                <option>Subject</option>
+              </select>
+              <button className="bg-primary text-on-primary px-8 py-3 rounded-lg font-headline-md text-label-md hover:opacity-90 active:scale-95 transition-all">Search</button>
+            </div>
+          </div>
+        </header>
+
+        <div className="flex flex-col md:flex-row gap-gutter">
+          <aside className="w-full md:w-64 space-y-8 flex-shrink-0">
+            <div>
+              <h3 className="font-label-md text-label-md uppercase tracking-wider text-on-surface-variant mb-4">Location</h3>
               <div className="space-y-3">
-                <label className="flex items-center justify-between group cursor-pointer">
-                  <span className="text-body-sm text-on-surface-variant group-hover:text-on-surface transition-colors">Available Now</span>
-                  <div
-                    className={`w-10 h-5 rounded-full relative transition-colors ${availableOnly ? 'bg-secondary' : 'bg-outline-variant'}`}
-                    onClick={() => setAvailableOnly(!availableOnly)}
-                  >
-                    <div className={`absolute top-1 w-3 h-3 bg-white rounded-full transition-all ${availableOnly ? 'left-6' : 'left-1'}`} />
-                  </div>
+                <label className="flex items-center gap-3 cursor-pointer group">
+                  <input defaultChecked className="w-5 h-5 rounded border-outline text-secondary focus:ring-secondary" type="checkbox" />
+                  <span className="font-body-sm text-body-sm group-hover:text-primary">NSEC, Kolkata</span>
                 </label>
-                <div className="flex flex-wrap gap-2 pt-2">
-                  {['Engineering', 'Computer Science', 'Literature'].map((tag) => (
-                    <span key={tag} className="px-3 py-1 bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm rounded-full">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
               </div>
+            </div>
+            <div>
+              <h3 className="font-label-md text-label-md uppercase tracking-wider text-on-surface-variant mb-4">Resource Type</h3>
+              <div className="space-y-3">
+                <label className="flex items-center gap-3 cursor-pointer group">
+                  <input defaultChecked className="w-5 h-5 rounded border-outline text-secondary focus:ring-secondary" type="checkbox" />
+                  <span className="font-body-sm text-body-sm group-hover:text-primary">Books</span>
+                </label>
+                <label className="flex items-center gap-3 cursor-pointer group">
+                  <input className="w-5 h-5 rounded border-outline text-secondary focus:ring-secondary" type="checkbox" />
+                  <span className="font-body-sm text-body-sm group-hover:text-primary">Journals</span>
+                </label>
+                <label className="flex items-center gap-3 cursor-pointer group">
+                  <input className="w-5 h-5 rounded border-outline text-secondary focus:ring-secondary" type="checkbox" />
+                  <span className="font-body-sm text-body-sm group-hover:text-primary">E-Resources</span>
+                </label>
+              </div>
+            </div>
+            <div>
+              <h3 className="font-label-md text-label-md uppercase tracking-wider text-on-surface-variant mb-4">Availability</h3>
+              <div className="space-y-3">
+                <label className="flex items-center gap-3 cursor-pointer group">
+                  <input className="w-5 h-5 rounded border-outline text-secondary focus:ring-secondary" type="checkbox" />
+                  <span className="font-body-sm text-body-sm group-hover:text-primary">Available Now</span>
+                </label>
+                <label className="flex items-center gap-3 cursor-pointer group">
+                  <input className="w-5 h-5 rounded border-outline text-secondary focus:ring-secondary" type="checkbox" />
+                  <span className="font-body-sm text-body-sm group-hover:text-primary">Include Borrowed</span>
+                </label>
+              </div>
+            </div>
+            <div className="pt-4 border-t border-outline-variant/30">
+              <button className="w-full flex items-center justify-center gap-2 font-label-md text-label-md text-secondary py-2 rounded-lg hover:bg-secondary-container/20 transition-all">
+                <span className="material-symbols-outlined text-[18px]">restart_alt</span> Clear Filters
+              </button>
             </div>
           </aside>
 
-          <section className="lg:col-span-9">
-            <div className="flex justify-between items-center mb-6">
-              <p className="font-body-md text-on-surface-variant">
-                Showing <span className="font-bold text-on-surface">{totalResults.toLocaleString()}</span> results for <span className="italic">&quot;{query}&quot;</span>
-              </p>
+          <section className="flex-grow">
+            <div className="flex flex-wrap justify-between items-center mb-8 gap-4">
               <div className="flex items-center gap-2">
-                <span className="font-label-md text-label-md text-on-surface-variant">Order By:</span>
-                <select className="py-1 px-3 rounded-md border-outline-variant bg-surface-container-lowest text-label-md outline-none">
-                  <option>Popularity</option>
-                  <option>Title (A-Z)</option>
-                  <option>Year (Newest)</option>
-                </select>
+                <span className="font-body-sm text-body-sm text-on-surface-variant">Showing 1-20 of 1,249 results</span>
               </div>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-              {books.map((book) => (
-                <BookCard key={book._id} book={book} />
-              ))}
-            </div>
-            {totalPages > 1 && (
-              <div className="mt-12 flex justify-center items-center gap-2">
-                <button
-                  className="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-surface-container-high transition-colors text-on-surface-variant"
-                  disabled={page <= 1}
-                  onClick={() => setPage((p) => Math.max(1, p - 1))}
-                >
-                  <span className="material-symbols-outlined">chevron_left</span>
-                </button>
-                {Array.from({ length: Math.min(totalPages, 5) }, (_, i) => i + 1).map((p) => (
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2">
+                  <span className="font-label-sm text-label-sm text-on-surface-variant uppercase">Sort By</span>
+                  <select className="bg-transparent border-none font-label-md text-label-md text-primary focus:ring-0 cursor-pointer">
+                    <option>Relevance</option>
+                    <option>Title (A-Z)</option>
+                    <option>Popularity</option>
+                    <option>Publication Year</option>
+                  </select>
+                </div>
+                <div className="flex items-center border border-outline-variant rounded-lg p-1">
                   <button
-                    key={p}
-                    className={`w-10 h-10 flex items-center justify-center rounded-lg font-bold ${
-                      p === page ? 'bg-secondary text-on-primary' : 'hover:bg-surface-container-high transition-colors text-on-surface-variant'
-                    }`}
-                    onClick={() => setPage(p)}
+                    className={`p-1.5 rounded-md ${view === 'grid' ? 'bg-surface-container-high text-primary' : 'text-on-surface-variant hover:bg-surface-container-low'} transition-all`}
+                    onClick={() => setView('grid')}
                   >
-                    {p}
+                    <span className="material-symbols-outlined">grid_view</span>
                   </button>
-                ))}
-                {totalPages > 5 && <span className="mx-2 text-on-surface-variant">...</span>}
-                <button
-                  className="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-surface-container-high transition-colors text-on-surface-variant"
-                  disabled={page >= totalPages}
-                  onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-                >
-                  <span className="material-symbols-outlined">chevron_right</span>
-                </button>
+                  <button
+                    className={`p-1.5 rounded-md ${view === 'list' ? 'bg-surface-container-high text-primary' : 'text-on-surface-variant hover:bg-surface-container-low'} transition-all`}
+                    onClick={() => setView('list')}
+                  >
+                    <span className="material-symbols-outlined">view_list</span>
+                  </button>
+                </div>
               </div>
-            )}
+            </div>
+
+            <div className={`${view === 'grid' ? 'grid grid-cols-1 lg:grid-cols-2 gap-6' : 'space-y-6'}`}>
+              {books.map((book) => {
+                const statusClass = statusStyles[book.status] || 'bg-surface-container-high text-on-surface-variant'
+                return (
+                  <div
+                    key={book._id}
+                    className={`bg-surface border border-outline-variant/20 rounded-xl overflow-hidden flex shadow-sm hover:shadow-md hover:border-secondary/50 transition-all group ${view === 'list' ? 'flex-row' : ''}`}
+                  >
+                    <div className={`${view === 'list' ? 'w-1/5' : 'w-1/3'} relative bg-surface-container`}>
+                      <img
+                        alt="Book Cover"
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        src={book.cover}
+                      />
+                      <div className="absolute top-2 right-2">
+                        <span className={`${statusClass} text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-tighter`}>
+                          {book.status}
+                        </span>
+                      </div>
+                    </div>
+                    <div className={`${view === 'list' ? 'w-4/5' : 'w-2/3'} p-5 flex flex-col`}>
+                      <div className="flex-grow">
+                        <span className="font-label-sm text-label-sm text-on-surface-variant mb-1 block">{book.code}</span>
+                        <h3 className="font-headline-md text-body-lg font-semibold text-primary mb-1 line-clamp-2">{book.title}</h3>
+                        <p className="font-body-sm text-body-sm text-on-surface-variant mb-4 italic">{book.author}</p>
+                      </div>
+                      {book.status !== 'E-Resource' ? (
+                        <div className="space-y-2">
+                          <div className="flex gap-2">
+                            <button className={`flex-1 py-2 rounded-lg font-label-md text-label-md transition-all ${book.status === 'Available' ? 'bg-secondary text-on-primary hover:opacity-90 active:scale-[0.98]' : 'bg-surface-container-high text-on-surface-variant cursor-not-allowed'}`}>
+                              {book.status === 'Available' ? 'Reserve' : 'Checked Out'}
+                            </button>
+                            <button className="p-2 border border-outline-variant rounded-lg hover:bg-surface-container-low transition-all">
+                              <span className="material-symbols-outlined text-[20px] text-primary">
+                                {book.status === 'Available' ? 'add_shopping_cart' : 'bookmark'}
+                              </span>
+                            </button>
+                          </div>
+                          {book.status === 'Borrowed' && (
+                            <div className="text-center">
+                              <span className="text-error font-label-sm text-label-sm">Expected Return: Oct 24, 2024</span>
+                            </div>
+                          )}
+                          {book.status === 'Available' && (
+                            <button className="w-full flex items-center justify-center gap-2 text-on-surface-variant font-label-sm text-label-sm py-1.5 hover:text-primary transition-colors">
+                              <span className="material-symbols-outlined text-[18px]">picture_as_pdf</span> Download E-Resource
+                            </button>
+                          )}
+                        </div>
+                      ) : (
+                        <div className="space-y-2">
+                          <button className="w-full bg-primary text-on-primary py-2 rounded-lg font-label-md text-label-md hover:opacity-90 active:scale-[0.98] transition-all flex items-center justify-center gap-2">
+                            <span className="material-symbols-outlined">download</span> Access PDF
+                          </button>
+                          <button className="w-full border border-outline-variant text-on-surface-variant py-2 rounded-lg font-label-md text-label-md hover:bg-surface-container-low transition-all">Add to Wishlist</button>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+
+            <div className="mt-12 flex justify-center items-center gap-2">
+              <button className="p-2 rounded-lg border border-outline-variant hover:bg-surface-container-low transition-all disabled:opacity-30" disabled>
+                <span className="material-symbols-outlined">chevron_left</span>
+              </button>
+              {[1, 2, 3].map((p) => (
+                <button
+                  key={p}
+                  className={`w-10 h-10 rounded-lg font-label-md text-label-md transition-all ${p === 1 ? 'bg-primary text-on-primary' : 'border border-outline-variant hover:bg-surface-container-low'}`}
+                >
+                  {p}
+                </button>
+              ))}
+              <span className="px-2">...</span>
+              <button className="w-10 h-10 rounded-lg border border-outline-variant hover:bg-surface-container-low font-label-md text-label-md transition-all">63</button>
+              <button className="p-2 rounded-lg border border-outline-variant hover:bg-surface-container-low transition-all">
+                <span className="material-symbols-outlined">chevron_right</span>
+              </button>
+            </div>
           </section>
         </div>
       </main>
-      <footer className="bg-surface-container-highest py-gutter mt-auto w-full border-t border-outline-variant">
-        <div className="px-margin-desktop max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center gap-base">
-          <div className="text-center md:text-left">
-            <h4 className="font-bold text-on-surface mb-1">NSEC Library</h4>
-            <p className="font-body-sm text-body-sm text-on-surface-variant">&copy; 2024 NSEC Library. All Rights Reserved.</p>
-            <p className="font-label-sm text-label-sm text-secondary mt-1">NSEC, Kolkata</p>
+
+      <footer className="w-full py-8 bg-surface-container-lowest border-t border-outline-variant/10">
+        <div className="flex flex-col md:flex-row justify-between items-center px-margin-desktop max-w-container-max mx-auto gap-6">
+          <div className="flex flex-col items-center md:items-start">
+            <span className="font-label-md text-label-md font-bold mb-2">Central Library</span>
+            <p className="font-body-sm text-body-sm text-on-surface-variant">&copy; 2024 Netaji Subhash Engineering College Central Library</p>
           </div>
-          <nav className="flex flex-wrap justify-center gap-gutter">
-            {['Library Hours', 'Contact Librarian', 'Privacy Policy', 'Access Guide'].map((link) => (
-              <a key={link} className="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-all hover:underline decoration-secondary" href="#">{link}</a>
-            ))}
-          </nav>
+          <div className="flex gap-8">
+            <a className="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
+            <a className="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Service</a>
+            <a className="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Contact Librarian</a>
+          </div>
           <div className="flex gap-4">
-            <span className="material-symbols-outlined text-outline">social_leaderboard</span>
-            <span className="material-symbols-outlined text-outline">crossword</span>
-            <span className="material-symbols-outlined text-outline">mail</span>
+            <a className="p-2 rounded-full border border-outline-variant hover:border-primary transition-all" href="#">
+              <span className="material-symbols-outlined text-[20px]">language</span>
+            </a>
+            <a className="p-2 rounded-full border border-outline-variant hover:border-primary transition-all" href="#">
+              <span className="material-symbols-outlined text-[20px]">mail</span>
+            </a>
           </div>
         </div>
       </footer>
-      <button className="fixed bottom-8 right-8 w-14 h-14 bg-secondary text-on-secondary rounded-full shadow-xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-40 md:hidden">
-        <span className="material-symbols-outlined">search</span>
-      </button>
     </div>
   )
 }

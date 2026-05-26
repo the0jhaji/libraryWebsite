@@ -190,7 +190,7 @@ export default function Settings() {
             <div className="relative z-10">
               <h4 className="font-headline-md text-white mb-2">Library Status</h4>
               <p className="font-body-sm text-surface-variant/80 mb-4">You have 2 books due in 3 days.</p>
-              <div className="text-3xl font-bold mb-1">₹ 0.00</div>
+              <div className="text-3xl font-bold mb-1">₹ 27.50</div>
               <p className="font-label-md uppercase tracking-wider text-secondary-container">Outstanding Balance</p>
             </div>
             <div className="absolute -bottom-4 -right-4 opacity-10">

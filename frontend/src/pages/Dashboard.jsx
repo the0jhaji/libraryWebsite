@@ -134,7 +134,7 @@ export default function Dashboard() {
           <div className="glass-card rounded-xl overflow-hidden shadow-md">
             <div className="bg-primary p-6 text-on-primary">
               <p className="font-label-md text-label-md uppercase tracking-wider opacity-80">Total Outstanding Fine</p>
-              <h4 className="font-headline-xl text-headline-xl mt-2">₹0.00</h4>
+              <h4 className="font-headline-xl text-headline-xl mt-2">₹27.50</h4>
             </div>
             <div className="p-6 space-y-6">
               <div className="flex items-start gap-3 p-3 bg-surface-container-low rounded-lg border border-outline-variant/20">

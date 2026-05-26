@@ -32,9 +32,9 @@ export default function AdminAnalytics() {
 
       <div className="grid grid-cols-12 gap-gutter mb-gutter">
         {[
-          { label: 'Daily Collection', value: '$482.50', trend: '+12%', color: 'text-success', icon: 'payments' },
-          { label: 'Monthly Revenue', value: '$12,490.00', trend: '+8.4%', color: 'text-secondary', icon: 'calendar_month' },
-          { label: 'Year-to-Date', value: '$84,320.00', trend: 'Stable', color: 'text-outline', icon: 'account_balance_wallet' },
+          { label: 'Daily Collection', value: '₹482.50', trend: '+12%', color: 'text-success', icon: 'payments' },
+          { label: 'Monthly Revenue', value: '₹12,490.00', trend: '+8.4%', color: 'text-secondary', icon: 'calendar_month' },
+          { label: 'Year-to-Date', value: '₹84,320.00', trend: 'Stable', color: 'text-outline', icon: 'account_balance_wallet' },
         ].map((stat) => (
           <div key={stat.label} className="col-span-12 md:col-span-4 bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/30 shadow-sm hover:shadow-md transition-shadow">
             <div className="flex justify-between items-start mb-4">

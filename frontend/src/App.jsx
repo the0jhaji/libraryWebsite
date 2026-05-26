@@ -7,7 +7,6 @@ import LoginForm from './components/LoginForm'
 import Sidebar from './components/Sidebar'
 import TopNav from './components/TopNav'
 import BottomNav from './components/BottomNav'
-import CatalogTopNav from './components/CatalogTopNav'
 import Dashboard from './pages/Dashboard'
 import Checkout from './pages/Checkout'
 import Catalog from './pages/Catalog'
@@ -67,15 +66,6 @@ function AppLayout({ children }) {
   )
 }
 
-function CatalogLayout() {
-  return (
-    <div className="min-h-screen flex flex-col bg-background">
-      <CatalogTopNav />
-      <Catalog />
-    </div>
-  )
-}
-
 function AdminLayout({ children }) {
   return (
     <div className="min-h-screen bg-background">
@@ -95,7 +85,7 @@ export default function App() {
         <Route path="/" element={<LoginPage />} />
         <Route path="/dashboard" element={<AppLayout><Dashboard /></AppLayout>} />
         <Route path="/checkout" element={<AppLayout><Checkout /></AppLayout>} />
-        <Route path="/catalog" element={<CatalogLayout />} />
+        <Route path="/catalog" element={<Catalog />} />
         <Route path="/payment-success" element={<AppLayout><PaymentSuccess /></AppLayout>} />
         <Route path="/settings" element={<AppLayout><Settings /></AppLayout>} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
