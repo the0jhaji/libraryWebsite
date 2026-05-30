@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useTheme } from '../context/ThemeContext'
 
 const loans = [
   {
@@ -7,38 +8,36 @@ const loans = [
     title: 'Introduction to Algorithms',
     author: 'Thomas H. Cormen, Charles E. Leiserson',
     status: 'on-time', dueDate: 'Oct 24, 2024', timeRemaining: '12 Days', timeClass: 'text-secondary',
-    renewals: '0 / 2', cover: 'https://lh3.googleusercontent.com/aida-public/AB6AXuD6gZEdetEv1GnpXy983f_gNBitG8zHdfw7WEVs-cQIwor-YS2QPcQdx62318sBKW3usVo6iZcnNvialK72-uJliw3LWpWLJpyOHWvPPnddqTUojOWh2KD7XA_gsbphIeEmjNEx253wi3AWlAOx7VRrXkQWzFtv6VoOPJU5IBtMaRgs2A4LPVc_XCFQP_YpUjUEC2KDDc4Rp8I7KlBvgQ8benXxj06Z4-G17PoZc4gkCr7uqTvLsDk1i4JqgcY-dDruL4JlD74p85s',
-    layout: 'full',
+    renewals: '0 / 2', layout: 'full',
+    cover: 'https://lh3.googleusercontent.com/aida-public/AB6AXuD6gZEdetEv1GnpXy983f_gNBitG8zHdfw7WEVs-cQIwor-YS2QPcQdx62318sBKW3usVo6iZcnNvialK72-uJliw3LWpWLJpyOHWvPPnddqTUojOWh2KD7XA_gsbphIeEmjNEx253wi3AWlAOx7VRrXkQWzFtv6VoOPJU5IBtMaRgs2A4LPVc_XCFQP_YpUjUEC2KDDc4Rp8I7KlBvgQ8benXxj06Z4-G17PoZc4gkCr7uqTvLsDk1i4JqgcY-dDruL4JlD74p85s',
   },
   {
     _id: '2', isbn: '',
     title: 'Machine Learning',
     author: 'Kevin P. Murphy',
     status: 'urgent', dueDate: 'Oct 13, 2024', timeRemaining: 'Due Tomorrow', timeClass: 'text-error',
-    location: 'Main Stacks, A-14',
+    location: 'Main Stacks, A-14', layout: 'half',
     cover: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCdzWnAUnxuxzcneT5Vy8YOS2VZX6wvefVCYwSYEnO7DxVb4HAlrQgu2hjyXDFLUXTC8iBEJLU_oa1EhHz26ZchDR2X9t-S9XFaVZj2chfWEfXDTDRmfuX3Q-rAF7WleqSXe_9G8S5-VplUaJk41iXyHgHS-1RMU_V_zyOG7bxACH0n768WywW0y57CLU41u_Wz8XYh_0NZSncu_DJobTF9TZ9fQJI6O7mohRD-_V9W5fAF1U3hJWHuFUlfgc4maYWoAoTn9weS3Fo',
-    layout: 'half',
   },
   {
     _id: '3', isbn: '978-1107002173',
     title: 'Quantum Computation',
     author: 'Michael A. Nielsen, Isaac L. Chuang',
     status: 'on-time', dueDate: '', timeRemaining: '18 Days', timeClass: 'text-secondary',
-    cover: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCkgmnsYrdzj4CODd6C8ng1SESDS0Kbjs4nWW4suk1_1oLDWAkHjyj70eJ02IP0NgRtrPLoQk9Jh7beqh1-70eKuIIYrP3Uq9zg0zMEm6XNSp-0GYFJj0wJpQVCEX-dm_ZmcS8iwOFIDzI9KZSuagpguOWvKp8LnYnRBeHI6v2r8SI_UqIjSe-IDBPsYzfSOuJ07HtJ_1PpLqQnZa3PtTNRX09lKZZocs7zwhcG_vO6v6uL69w_q4ziBhzv2ANDScpjd8y8cmLSsRY',
     layout: 'half',
+    cover: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCkgmnsYrdzj4CODd6C8ng1SESDS0Kbjs4nWW4suk1_1oLDWAkHjyj70eJ02IP0NgRtrPLoQk9Jh7beqh1-70eKuIIYrP3Uq9zg0zMEm6XNSp-0GYFJj0wJpQVCEX-dm_ZmcS8iwOFIDzI9KZSuagpguOWvKp8LnYnRBeHI6v2r8SI_UqIjSe-IDBPsYzfSOuJ07HtJ_1PpLqQnZa3PtTNRX09lKZZocs7zwhcG_vO6v6uL69w_q4ziBhzv2ANDScpjd8y8cmLSsRY',
   },
   {
     _id: '4', isbn: '978-0132350884',
     title: 'Clean Code',
     author: 'Robert C. Martin',
     status: 'on-time', dueDate: 'Nov 02, 2024', timeRemaining: '21 Days', timeClass: 'text-secondary',
-    statusLabel: 'Standard Loan',
+    statusLabel: 'Standard Loan', layout: 'full',
     cover: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDRV1cydS1RFQStcVZJPGzqIA4S1WSvycINny2TQWPrjPgZy0BRpCfdzv9gelhZYMJhKWVunyg1X34lLO1IfyBgz9xkf5tr4c-OQZern1djKAA-TFqlTj4qZlko-m5wobTOVxv1rpaIZz0ZimSHXjEJq21LpXijhJM9E_-JppskFJ0xoOy9tpU3JS1uv_jupEBKSf7QQf7-7PB_bVZ0KsDeTj1Obni2fbAbegrmsFdI7Q0caskkMezHVns25iGhDznVelo1ujp1POk',
-    layout: 'full',
   },
 ]
 
-function handleRenew(setStatuses, id) {
+function renewBook(setStatuses, id) {
   setStatuses((prev) => ({ ...prev, [id]: 'processing' }))
   setTimeout(() => {
     setStatuses((prev) => ({ ...prev, [id]: 'renewed' }))
@@ -48,8 +47,113 @@ function handleRenew(setStatuses, id) {
   }, 1500)
 }
 
+function FullCard({ book, s, setStatuses }) {
+  return (
+    <div className="flex flex-col md:flex-row">
+      <div className="w-full md:w-48 h-64 md:h-auto overflow-hidden">
+        <img className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt={book.title} src={book.cover} />
+      </div>
+      <div className="flex-1 p-6 flex flex-col justify-between">
+        <div>
+          <div className="flex justify-between items-start mb-2">
+            <span className={`px-3 py-1 text-label-sm font-label-sm rounded-full ${book.status === 'on-time' ? 'bg-success/10 text-success' : 'bg-error/10 text-error'}`}>
+              {book.status === 'on-time' ? 'On Time' : 'Urgent'}
+            </span>
+            {book.isbn && <span className="font-label-md text-label-md text-on-surface-variant">ISBN: {book.isbn}</span>}
+          </div>
+          <h3 className="font-headline-md text-headline-md text-primary mb-1">{book.title}</h3>
+          <p className="text-on-surface-variant font-body-sm text-body-sm mb-4">{book.author}</p>
+          <div className="flex flex-wrap gap-8">
+            {book.dueDate && (
+              <div className="flex flex-col">
+                <span className="text-label-sm font-label-sm text-on-surface-variant uppercase mb-1">Due Date</span>
+                <span className="font-label-md text-body-md font-bold">{book.dueDate}</span>
+              </div>
+            )}
+            <div className="flex flex-col">
+              <span className="text-label-sm font-label-sm text-on-surface-variant uppercase mb-1">{book.status === 'urgent' ? 'Due' : 'Time Remaining'}</span>
+              <span className={`font-label-md text-body-md font-bold ${book.timeClass}`}>{book.timeRemaining}</span>
+            </div>
+            {book.renewals !== undefined && (
+              <div className="flex flex-col">
+                <span className="text-label-sm font-label-sm text-on-surface-variant uppercase mb-1">Renewals</span>
+                <span className="font-label-md text-body-md font-bold">{book.renewals}</span>
+              </div>
+            )}
+            {book.statusLabel && (
+              <div className="flex flex-col">
+                <span className="text-label-sm font-label-sm text-on-surface-variant uppercase mb-1">Status</span>
+                <span className="font-label-md text-body-md font-bold">{book.statusLabel}</span>
+              </div>
+            )}
+          </div>
+        </div>
+        <div className="flex justify-end mt-6 gap-3">
+          <button className="px-6 py-2 border border-outline text-on-surface-variant rounded-lg font-bold hover:bg-surface-container-low transition-colors active:scale-95" onClick={() => console.log('View details:', book.title)}>View Details</button>
+          <button
+            className={`px-8 py-2 rounded-lg font-bold transition-all active:scale-95 ${s === 'renewed' ? 'bg-success text-white' : 'bg-secondary text-on-secondary hover:opacity-90'}`}
+            onClick={() => renewBook(setStatuses, book._id)}
+            disabled={s === 'processing'}
+          >
+            {s === 'processing' ? (
+              <><span className="material-symbols-outlined animate-spin text-[18px] align-middle">sync</span> Processing</>
+            ) : s === 'renewed' ? (
+              <><span className="material-symbols-outlined text-[18px] align-middle">check_circle</span> Renewed</>
+            ) : 'Renew'}
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function HalfCard({ book, s, setStatuses }) {
+  return (
+    <div className="flex flex-col h-full">
+      <div className="h-48 overflow-hidden relative">
+        <div className="absolute top-4 right-4 z-10">
+          <span className={`px-3 py-1 text-label-sm font-label-sm rounded-full ${book.status === 'on-time' ? 'bg-success/10 text-success' : 'bg-error/10 text-error'}`}>
+            {book.status === 'on-time' ? 'On Time' : 'Urgent'}
+          </span>
+        </div>
+        <img className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt={book.title} src={book.cover} />
+      </div>
+      <div className="p-6 flex flex-col flex-1">
+        <div className="mb-6">
+          <h3 className="font-headline-md text-headline-md text-primary mb-1">{book.title}</h3>
+          <p className="text-on-surface-variant font-body-sm text-body-sm">{book.author}</p>
+        </div>
+        <div className="space-y-4 mb-8">
+          <div className="flex justify-between items-center border-b border-outline-variant/20 pb-2">
+            <span className="text-label-sm font-label-sm text-on-surface-variant uppercase">{book.status === 'urgent' ? 'Due Tomorrow' : 'Due In'}</span>
+            <span className={`font-label-md text-body-md font-bold ${book.timeClass}`}>{book.dueDate || book.timeRemaining}</span>
+          </div>
+          <div className="flex justify-between items-center border-b border-outline-variant/20 pb-2">
+            <span className="text-label-sm font-label-sm text-on-surface-variant uppercase">Location</span>
+            <span className="font-label-md text-body-md">{book.location || 'Main Stacks'}</span>
+          </div>
+        </div>
+        <div className="mt-auto">
+          <button
+            className={`w-full py-3 rounded-lg font-bold transition-all active:scale-[0.98] ${s === 'renewed' ? 'bg-success text-white' : book.status === 'urgent' ? 'bg-brand-red-legacy text-white hover:brightness-110' : 'bg-secondary text-on-secondary hover:opacity-90'}`}
+            onClick={() => renewBook(setStatuses, book._id)}
+            disabled={s === 'processing'}
+          >
+            {s === 'processing' ? (
+              <><span className="material-symbols-outlined animate-spin text-[18px] align-middle">sync</span> Processing</>
+            ) : s === 'renewed' ? (
+              <><span className="material-symbols-outlined text-[18px] align-middle">check_circle</span> Renewed</>
+            ) : book.status === 'urgent' ? 'Renew Immediately' : 'Renew'}
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export default function MyLoans() {
   const [statuses, setStatuses] = useState({})
+  const { toggleDarkMode } = useTheme()
 
   return (
     <div className="bg-background text-on-surface min-h-screen font-body-md">
@@ -68,14 +172,11 @@ export default function MyLoans() {
             </nav>
             <div className="flex items-center gap-4 border-l border-outline-variant/30 pl-8">
               <button className="material-symbols-outlined p-2 hover:bg-surface-container-low rounded-full transition-all duration-200 active:scale-95" onClick={() => console.log('Notifications')}>notifications</button>
+              <button className="material-symbols-outlined p-2 hover:bg-surface-container-low rounded-full transition-all duration-200 active:scale-95" onClick={toggleDarkMode}>dark_mode</button>
               <div className="flex items-center gap-3">
                 <span className="font-label-md text-label-md">Alex Rivera</span>
                 <div className="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-white overflow-hidden">
-                  <img
-                    className="w-full h-full object-cover"
-                    alt="Profile"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3N1-sLByRyS7IyigDaH6RmI4mjivG68oBxLkdZWdjQcMYvX1bdawBtSsMjYD30iZzIHNi-EXLZgNQOu8U4naUPDhdNBrLEQMCpMaT1uzy6eqyzTmFcdCV6AN51nEkt-fK2NMaN9Co78lfUpevhQlvZJ4XtaLMhUUDFfkg07Z5TTKvEKFsEh3NG9rRMRdijqYcLVgXZ_raT2y5QtfAYKMZ2Fcp80veg7zohWTJ7SGxyt9FHw4Ixj2CE_ZhyBw6xe5m00779WWm29M"
-                  />
+                  <img className="w-full h-full object-cover" alt="Profile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3N1-sLByRyS7IyigDaH6RmI4mjivG68oBxLkdZWdjQcMYvX1bdawBtSsMjYD30iZzIHNi-EXLZgNQOu8U4naUPDhdNBrLEQMCpMaT1uzy6eqyzTmFcdCV6AN51nEkt-fK2NMaN9Co78lfUpevhQlvZJ4XtaLMhUUDFfkg07Z5TTKvEKFsEh3NG9rRMRdijqYcLVgXZ_raT2y5QtfAYKMZ2Fcp80veg7zohWTJ7SGxyt9FHw4Ixj2CE_ZhyBw6xe5m00779WWm29M" />
                 </div>
               </div>
             </div>
@@ -147,7 +248,7 @@ export default function MyLoans() {
                 </div>
                 <button
                   className="bg-primary text-on-primary h-14 px-8 rounded-lg font-bold hover:opacity-90 transition-all active:scale-95 flex items-center gap-2"
-                  onClick={() => loans.forEach((l) => handleRenew(setStatuses, l._id))}
+                  onClick={() => loans.forEach((l) => renewBook(setStatuses, l._id))}
                 >
                   <span className="material-symbols-outlined">sync</span> Renew All
                 </button>
@@ -161,101 +262,9 @@ export default function MyLoans() {
               return (
                 <div key={book._id} className={`${book.layout === 'full' ? 'lg:col-span-12' : 'lg:col-span-6'} glass-card rounded-xl overflow-hidden hover:shadow-md transition-shadow group`}>
                   {book.layout === 'full' ? (
-                    <div className="flex flex-col md:flex-row">
-                      <div className="w-full md:w-48 h-64 md:h-auto overflow-hidden">
-                        <img className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt={book.title} src={book.cover} />
-                      </div>
-                      <div className="flex-1 p-6 flex flex-col justify-between">
-                        <div>
-                          <div className="flex justify-between items-start mb-2">
-                            <span className={`px-3 py-1 text-label-sm font-label-sm rounded-full ${book.status === 'on-time' ? 'bg-success/10 text-success' : 'bg-error/10 text-error'}`}>
-                              {book.status === 'on-time' ? 'On Time' : 'Urgent'}
-                            </span>
-                            {book.isbn && <span className="font-label-md text-label-md text-on-surface-variant">ISBN: {book.isbn}</span>}
-                          </div>
-                          <h3 className="font-headline-md text-headline-md text-primary mb-1">{book.title}</h3>
-                          <p className="text-on-surface-variant font-body-sm text-body-sm mb-4">{book.author}</p>
-                          <div className="flex flex-wrap gap-8">
-                            {book.dueDate && (
-                              <div className="flex flex-col">
-                                <span className="text-label-sm font-label-sm text-on-surface-variant uppercase mb-1">Due Date</span>
-                                <span className="font-label-md text-body-md font-bold">{book.dueDate}</span>
-                              </div>
-                            )}
-                            <div className="flex flex-col">
-                              <span className="text-label-sm font-label-sm text-on-surface-variant uppercase mb-1">{book.status === 'urgent' ? 'Due' : 'Time Remaining'}</span>
-                              <span className={`font-label-md text-body-md font-bold ${book.timeClass}`}>{book.timeRemaining}</span>
-                            </div>
-                            {book.renewals !== undefined && (
-                              <div className="flex flex-col">
-                                <span className="text-label-sm font-label-sm text-on-surface-variant uppercase mb-1">Renewals</span>
-                                <span className="font-label-md text-body-md font-bold">{book.renewals}</span>
-                              </div>
-                            )}
-                            {book.statusLabel && (
-                              <div className="flex flex-col">
-                                <span className="text-label-sm font-label-sm text-on-surface-variant uppercase mb-1">Status</span>
-                                <span className="font-label-md text-body-md font-bold">{book.statusLabel}</span>
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                        <div className="flex justify-end mt-6 gap-3">
-                          <button className="px-6 py-2 border border-outline text-on-surface-variant rounded-lg font-bold hover:bg-surface-container-low transition-colors active:scale-95" onClick={() => console.log('View details:', book.title)}>View Details</button>
-                          <button
-                            className={`px-8 py-2 rounded-lg font-bold transition-all active:scale-95 ${s === 'renewed' ? 'bg-success text-white' : 'bg-secondary text-on-secondary hover:opacity-90'}`}
-                            onClick={() => handleRenew(setStatuses, book._id)}
-                            disabled={s === 'processing'}
-                          >
-                            {s === 'processing' ? (
-                              <><span className="material-symbols-outlined animate-spin text-[18px] align-middle">sync</span> Processing</>
-                            ) : s === 'renewed' ? (
-                              <><span className="material-symbols-outlined text-[18px] align-middle">check_circle</span> Renewed</>
-                            ) : 'Renew'}
-                          </button>
-                        </div>
-                      </div>
-                    </div>
+                    <FullCard book={book} s={s} setStatuses={setStatuses} />
                   ) : (
-                    <div className="flex flex-col h-full">
-                      <div className="h-48 overflow-hidden relative">
-                        <div className="absolute top-4 right-4 z-10">
-                          <span className={`px-3 py-1 text-label-sm font-label-sm rounded-full ${book.status === 'on-time' ? 'bg-success/10 text-success' : 'bg-error/10 text-error'}`}>
-                            {book.status === 'on-time' ? 'On Time' : 'Urgent'}
-                          </span>
-                        </div>
-                        <img className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt={book.title} src={book.cover} />
-                      </div>
-                      <div className="p-6 flex flex-col flex-1">
-                        <div className="mb-6">
-                          <h3 className="font-headline-md text-headline-md text-primary mb-1">{book.title}</h3>
-                          <p className="text-on-surface-variant font-body-sm text-body-sm">{book.author}</p>
-                        </div>
-                        <div className="space-y-4 mb-8">
-                          <div className="flex justify-between items-center border-b border-outline-variant/20 pb-2">
-                            <span className="text-label-sm font-label-sm text-on-surface-variant uppercase">{book.status === 'urgent' ? 'Due Tomorrow' : 'Due In'}</span>
-                            <span className={`font-label-md text-body-md font-bold ${book.timeClass}`}>{book.dueDate || book.timeRemaining}</span>
-                          </div>
-                          <div className="flex justify-between items-center border-b border-outline-variant/20 pb-2">
-                            <span className="text-label-sm font-label-sm text-on-surface-variant uppercase">Location</span>
-                            <span className="font-label-md text-body-md">{book.location || 'Main Stacks'}</span>
-                          </div>
-                        </div>
-                        <div className="mt-auto">
-                          <button
-                            className={`w-full py-3 rounded-lg font-bold transition-all active:scale-[0.98] ${s === 'renewed' ? 'bg-success text-white' : book.status === 'urgent' ? 'bg-brand-red-legacy text-white hover:brightness-110' : 'bg-secondary text-on-secondary hover:opacity-90'}`}
-                            onClick={() => handleRenew(setStatuses, book._id)}
-                            disabled={s === 'processing'}
-                          >
-                            {s === 'processing' ? (
-                              <><span className="material-symbols-outlined animate-spin text-[18px] align-middle">sync</span> Processing</>
-                            ) : s === 'renewed' ? (
-                              <><span className="material-symbols-outlined text-[18px] align-middle">check_circle</span> Renewed</>
-                            ) : 'Renew Immediately'}
-                          </button>
-                        </div>
-                      </div>
-                    </div>
+                    <HalfCard book={book} s={s} setStatuses={setStatuses} />
                   )}
                 </div>
               )

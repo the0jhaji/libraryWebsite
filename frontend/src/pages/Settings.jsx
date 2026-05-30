@@ -1,9 +1,10 @@
 import { useState } from 'react'
+import { useTheme } from '../context/ThemeContext'
 
 export default function Settings() {
+  const { darkMode, toggleDarkMode } = useTheme()
   const [name] = useState('Alex Rivera')
   const [email] = useState('alex.rivera@nsec.edu.in')
-  const [darkMode, setDarkMode] = useState(false)
   const [notifications, setNotifications] = useState({
     emailArrivals: true,
     dueReminders: true,
@@ -14,18 +15,6 @@ export default function Settings() {
 
   const handleNotifToggle = (key) => {
     setNotifications((prev) => ({ ...prev, [key]: !prev[key] }))
-  }
-
-  const handleDarkToggle = () => {
-    setDarkMode((prev) => {
-      const next = !prev
-      if (next) {
-        document.documentElement.classList.add('dark')
-      } else {
-        document.documentElement.classList.remove('dark')
-      }
-      return next
-    })
   }
 
   const toggleClass = (on) =>
@@ -178,7 +167,7 @@ export default function Settings() {
                     className="sr-only peer"
                     type="checkbox"
                     checked={darkMode}
-                    onChange={handleDarkToggle}
+                    onChange={toggleDarkMode}
                   />
                   <div className={`toggle-bg w-11 h-6 rounded-full peer ${darkMode ? 'bg-secondary' : 'bg-outline-variant/30'}`} />
                   <div className={`toggle-dot absolute left-[2px] top-[2px] bg-white w-5 h-5 rounded-full transition-all ${darkMode ? 'translate-x-full' : ''}`} />

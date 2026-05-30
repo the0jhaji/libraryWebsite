@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom'
+import { useTheme } from '../context/ThemeContext'
 
 export default function TopNav() {
+  const { toggleDarkMode } = useTheme()
   return (
     <header className="fixed top-0 right-0 left-0 md:left-64 h-16 flex justify-between items-center px-6 md:px-margin-desktop bg-surface-container-lowest/80 backdrop-blur-xl z-30 border-b border-outline-variant/30 shadow-sm">
       <div className="flex items-center gap-8">
@@ -18,7 +20,7 @@ export default function TopNav() {
           </button>
           <span className="absolute top-2 right-2 w-2 h-2 bg-brand-red-legacy rounded-full" />
         </div>
-        <button className="p-2 rounded-lg hover:bg-surface-container-high/50 transition-all active:scale-95" onClick={() => console.log('Toggle theme')}>
+        <button className="p-2 rounded-lg hover:bg-surface-container-high/50 transition-all active:scale-95" onClick={toggleDarkMode}>
           <span className="material-symbols-outlined">dark_mode</span>
         </button>
         <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-secondary/20">
